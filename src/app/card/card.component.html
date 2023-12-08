@@ -1,0 +1,28 @@
+<div class="card-container">
+    <a class="hero-image-container" href="/">
+        <img [src]="game.background_image" alt="{{ game.name }}" class="hero-image"/>
+    </a>
+    <main class="main-content">
+        <h1><a href="#">{{ game.name }}</a>
+            <p>{{ game.rating }} / {{ game.rating_top }}</p></h1>
+        <br>
+        <hr />
+        <br>
+        <div class="flex-row">
+            <ul>
+                <li *ngFor="let platformWrapper of game.parent_platforms" class="platform-item">
+                    {{ platformWrapper.platform.name === 'Apple Macintosh' ? 'Mac' : platformWrapper.platform.name }}
+                </li>
+            </ul>
+        </div>
+        <br>
+        <hr />
+
+        <div class="card-attribute">
+            <div *ngFor="let genre of game.genres">
+                <span class="genre-span">{{ genre.name }}</span>
+            </div>
+
+        </div>
+    </main>
+</div>

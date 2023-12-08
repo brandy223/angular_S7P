@@ -9,6 +9,7 @@ import { JeuxComponent } from './jeux/jeux.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
 import { PaginationComponent } from './pagination/pagination.component';
+import { CardComponent } from './card/card.component';
 import { HeroComponent } from './hero/hero.component';
 
 
@@ -18,6 +19,8 @@ import { HeroComponent } from './hero/hero.component';
     JeuxComponent,
     HeaderComponent,
     FooterComponent,
+    PaginationComponent,
+    CardComponent,
     PaginationComponent,
     HeroComponent
   ],

@@ -1,8 +1,6 @@
 <div class="d-flex justify-content-around align-items-center align-self-stretch flex-wrap">
     <div *ngFor="let game of games" class="d-flex flex-column bd-highlight mb-3">
-        <img [src]="game.background_image" alt="{{game.name}}" class="rounded mx-auto d-block img-fluid" style="width: 20rem; height: 20rem; object-fit: cover">
-        <h3 style="width: 20rem; object-fit: contain">{{game.name}}</h3>
+        <app-card [game]="game"></app-card>
     </div>
 </div>
-
 <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination>
