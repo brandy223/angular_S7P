@@ -1,9 +1,9 @@
 <div class="card-container">
-    <a class="hero-image-container" href="/">
+    <a class="hero-image-container" routerLink="/jeux/{{game.id}}">
         <img [src]="game.background_image" alt="{{ game.name }}" class="hero-image"/>
     </a>
     <main class="main-content">
-        <h1><a href="/jeux/{{game.id}}">{{ game.name }}</a>
+        <h1><a routerLink="/jeux/{{game.id}}">{{ game.name }}</a>
             <p>{{ game.rating }} / {{ game.rating_top }}</p></h1>
         <br>
         <hr />
