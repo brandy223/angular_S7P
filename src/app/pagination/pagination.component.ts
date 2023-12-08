@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PaginationComponent {
   @Input() currentPage: number = 1;
-  @Input() totalPages: number = 20;
+  @Input() totalPages: number = 100;
   @Output() pageChange = new EventEmitter<number>();
 
   getPagination(): number[] {
