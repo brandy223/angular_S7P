@@ -1,19 +1,35 @@
-<header>
-    <div class="panel padding-10">
-        <div class="row">
-            <div class="col-2 d-flex justify-content-center"><a routerLink="/home"><img [src]="" height="30px" /></a></div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-2 d-flex justify-content-center"><a routerLink="/home" routerLinkActive="gras">Accueil</a></div>
-                    <div class="col-2 d-flex justify-content-center"><a routerLink="/with" routerLinkActive="gras">Les cocktails avec alcool</a></div>
-                    <div class="col-2 d-flex justify-content-center"><a routerLink="/without" routerLinkActive="gras">Les cocktails sans alcool</a></div>
-                    <div class="col-2 d-flex justify-content-center"><a routerLink="/finances" routerLinkActive="gras">Finances</a></div>
-                    <div class="col-2 d-flex justify-content-center"><a routerLink="/observables" routerLinkActive="gras">Observables</a></div>
-                    <div class="col-1"></div>
+<div>
+    <div class="header-black">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container"><a class="navbar-brand" href="#">Game Gusto</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                     id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Accueil</a></li>
+                        <li class="dropdown"><a routerLink="/jeux" class="dropdown-toggle nav-link dropdown-toggle nav-link active" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Jeux</a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Platformes</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Developpeurs</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Editeurs</a></li>
+                    </ul>
+                    <form class="form-inline mr-auto" target="_self">
+                        <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
+                    </form><span class="navbar-text"> <a href="#" class="login">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></div>
+            </div>
+        </nav>
+        <div class="container hero p-5">
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
+                    <h1>The revolution is here.</h1>
+                    <p>Mauris egestas tellus non ex condimentum, ac ullamcorper sapien dictum. Nam consequat neque quis sapien viverra convallis. In non tempus lorem. </p><button class="btn btn-light btn-lg action-button" type="button">Learn More</button></div>
+                <div
+                        class="col-md-5 col-lg-5 offset-lg-1 offset-xl-0 d-none d-lg-block logo">
+                    <div class=""><img height="300px" src="assets/gamegusto.webp" alt="erreur chargement" class="device">
+                        <div class="screen"></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-2 d-flex justify-content-center"><a href="/about">A propos</a></div>
         </div>
     </div>
-</header>
+</div>
