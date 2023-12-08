@@ -21,7 +21,7 @@ export class RawgService {
   }
 
   getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<Jeu[]> {
-    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}`).pipe(
+    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}&ordering=-rating`).pipe(
         map(response => response.results)
     );
   }
