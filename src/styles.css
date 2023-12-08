@@ -27,8 +27,12 @@ body {
     font-weight: 400;
     user-select: none;
     transition: all 200ms ease;
-    background-color: #1a1a1a;
     color: #f3f3f3;
+    background: linear-gradient(135deg, #000000, #434343) fixed;
+    padding-bottom: 30px;
+    margin: 0; /* Assurez-vous qu'il n'y a pas de marge par défaut */
+    height: 100%; /* S'étend sur toute la hauteur */
+    min-height: 100vh; /* S'assure que le dégradé couvre toute la hauteur de la fenêtre de visualisation */
 }
 
 body:focus {
