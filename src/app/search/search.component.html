@@ -2,12 +2,11 @@
     <div class="row">
         <div class="col">
             <!-- Champ de recherche -->
-            <form (ngSubmit)="submit()" [formGroup]="searchForm">
+            <form [formGroup]="searchForm">
                 <div>
                     <label>Search</label>
                     <input formControlName="search" type="text" class="form-control" placeholder="Recherche ..."/>
                 </div>
-                <button type="submit" class="btn btn-danger">Search</button>
             </form>
 
         </div>
