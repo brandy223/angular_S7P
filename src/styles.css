@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://rsms.me/inter/inter.css");
+
+html {
+    font-family: "Inter", sans-serif;
+}
+
+:root {
+    --bg-page: #1a1a1a;
+    --text-color: #f3f3f3;
+    --card-bg: #202020;
+    --icon-bg: #45423c;
+    --blue: #0870f8;
+    --orange: #ff9232;
+    --g-purple: linear-gradient(30deg, #85f, #9966ff);
+    --g-yellow: linear-gradient(30deg, #fc0, #fc0);
+    --g-red: linear-gradient(30deg, #f36, #f24);
+    --g-blue: linear-gradient(30deg, #0cf, #0af);
+    --shadow: rgba(0, 6, 39, 0.1);
+    --light-shadow: rgba(255, 255, 255, 0.8);
+    --light-shadow-2: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    user-select: none;
+    transition: all 200ms ease;
+    background-color: #1a1a1a;
+    color: #f3f3f3;
+}
+
+body:focus {
+    outline: none;
+}

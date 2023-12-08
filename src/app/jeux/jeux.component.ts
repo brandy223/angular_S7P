@@ -7,19 +7,30 @@ import { RawgService } from '../rawg.service';
   styleUrls: ['./jeux.component.css']
 })
 export class JeuxComponent implements OnInit {
-  games: any[] = [];
+    games: any[] = [];
+    currentPage: number = 1;
+    totalGames: number = 100;
+    pageSize: number = 20;
+    totalPages: number = 5;
 
-  constructor(private rawgService: RawgService) {
-  }
+    constructor(private rawgService: RawgService) { }
 
-  ngOnInit(): void {
-    this.rawgService.getGames().subscribe(
-        data => {
-          this.games = data.results;
-        },
-        error => {
-          console.error('Erreur lors de la récupération des jeux', error);
-        }
-    );
-  }
+    ngOnInit(): void {
+        this.loadGames();
+    }
+
+    loadGames(): void {
+        this.rawgService.getGames(this.currentPage, this.pageSize).subscribe(data => {
+            this.games = data.results;
+            this.totalGames = data.count;
+            this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+        });
+    }
+
+    onPageChange(page: number): void {
+        this.currentPage = page;
+        this.loadGames();
+    }
+
 }
+

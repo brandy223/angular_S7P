@@ -8,13 +8,16 @@ import { FooterComponent } from './footer/footer.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
+import { PaginationComponent } from './pagination/pagination.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     JeuxComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
