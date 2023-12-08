@@ -1,0 +1,42 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col">
+            <!-- Champ de recherche -->
+            <form (ngSubmit)="submit()" [formGroup]="searchForm">
+                <div>
+                    <label>Search</label>
+                    <input formControlName="search" type="text" class="form-control" placeholder="Recherche ..."/>
+                </div>
+                <button type="submit" class="btn btn-danger">Search</button>
+            </form>
+
+        </div>
+        <div class="col">
+            <!-- Premier champ de sélection -->
+            <select class="form-select">
+                <option selected>Choix 1</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+        <div class="col">
+            <!-- Deuxième champ de sélection -->
+            <select class="form-select">
+                <option selected>Choix 2</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+        <div class="col">
+            <!-- Troisième champ de sélection -->
+            <select class="form-select">
+                <option selected>Choix 3</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+    </div>
+</div>

@@ -32,5 +32,8 @@ export class JeuxComponent implements OnInit {
         this.loadGames();
     }
 
+    onEvent = (event: any) => {
+        this.games = event;
+    };
 }
 

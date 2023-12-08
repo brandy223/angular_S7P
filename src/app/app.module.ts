@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { PaginationComponent } from './pagination/pagination.component';
 import { CardComponent } from './card/card.component';
 import { HeroComponent } from './hero/hero.component';
+import { SearchComponent } from './search/search.component';
+import { ReactiveFormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import { HeroComponent } from './hero/hero.component';
     PaginationComponent,
     CardComponent,
     PaginationComponent,
-    HeroComponent
+    HeroComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

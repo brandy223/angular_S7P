@@ -1,0 +1,14 @@
+.search-field {
+    display:inline-block;
+    width:80%;
+    background:none;
+    border:none;
+    border-bottom:1px solid transparent;
+    border-radius:0;
+    box-shadow:none;
+    transition:border-bottom-color 0.3s;
+}
+
+.search-field:focus {
+    border-bottom:1px solid #ffffff;
+}
