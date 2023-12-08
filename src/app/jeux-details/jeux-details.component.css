@@ -1,0 +1,149 @@
+/*.game-bck {*/
+/*  height: 100%;*/
+/*  width: 100%;*/
+/*  background-size: cover;*/
+/*  background-repeat: no-repeat;*/
+/*  background-position: center;*/
+/*  position: absolute;*/
+/*  z-index: 1;*/
+/*  !*filter: brightness(0.3);*!*/
+/*}*/
+
+/*.game-zone {*/
+/*  margin-top: 50px;*/
+/*  margin-left: 50px;*/
+/*  margin-right: 50px;*/
+/*  background-color: red;*/
+/*  z-index: 10;*/
+/*  padding: 50px;*/
+
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: space-around;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.game-zone-description {*/
+/*  background-color: #00aaff;*/
+/*  width: 45%;*/
+/*  z-index: 11;*/
+
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: space-around;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.game-zone-pic {*/
+/*  width: 35%;*/
+/*  background-color: #1a1a1a;*/
+/*}*/
+
+/*.game-zone-pic img {*/
+/*  width: 80%;*/
+/*  height: 80%;*/
+/*  object-fit: cover;*/
+/*}*/
+
+/*.game-zone-info {*/
+/*  width: 65%;*/
+/*  background-color: #37434d;*/
+/*}*/
+
+/*.game-zone-video {*/
+/*  background-color: purple;*/
+/*  width: 45%;*/
+/*  z-index: 11;*/
+/*}*/
+
+body {
+  margin-top: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+}
+
+.vgr-cards {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .card {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 100%;
+    padding-bottom: 20px;
+
+    &:nth-child(even) .card-img-column {
+      order: 2;
+    }
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 100%;
+  }
+
+  .card-img-column {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .card-img-body {
+    overflow: hidden;
+    position: relative;
+
+    @media (max-width: 576px) {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .card-img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-radius: 7px;
+    margin: 10px 0 0 10px;
+
+    @media (max-width: 1140px) {
+      margin: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .card-links {
+    margin-top: 15px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: start;
+    margin-left: 20px;
+  }
+
+  .card-links a {
+    margin: 5px 0;
+    width: 130px;
+  }
+
+  .card-body {
+    flex: 2;
+    padding: 0 0 0 1.25rem;
+    margin-top: 20px;
+
+    @media (max-width: 576px) {
+      padding: 0;
+    }
+  }
+}

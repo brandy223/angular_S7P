@@ -1,0 +1,46 @@
+<!--<div class="game-bck" [style.background-image]="'url(' + gameDetails.background_image_additional + ')'">-->
+<!--  &lt;!&ndash;  {{gameDetails | json}}&ndash;&gt;-->
+<!--  <div class="game-zone">-->
+<!--      <div class="game-zone-description">-->
+<!--        <div class="game-zone-pic col-6">-->
+<!--          <img src="https://image.jeuxvideo.com/medias-sm/163129/1631287693-8700-jaquette-avant.jpg" alt="test">-->
+<!--&lt;!&ndash;          <h2 style="background-color: #0870f8">Test</h2>&ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="game-zone-info col">-->
+<!--          <h3>{{gameDetails.name}}</h3>-->
+<!--          <p>{{formattedReleaseDate}}</p>-->
+<!--         <p>{{gameDetails.publishers[0].name}}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="game-zone-video">-->
+<!--        Video HERE-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container">
+  <div class="vgr-cards">
+    <div class="card bg-dark text-white">
+      <div class="card-content">
+        <div class="card-img-column">
+          <div class="card-img-body">
+            <img class="card-img" src="{{gameDetails.background_image_additional}}" alt="Card image cap">
+            <div class="card-links">
+              <a href="{{gameDetails.website}}" class="btn btn-outline-primary">Site officiel</a>
+              <a href="{{gameDetails.metacritic_url}}" class="btn btn-outline-primary">Metacritic</a>
+              <a href="{{gameDetails.reddit_url}}" class="btn btn-outline-primary">Reddit</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{gameDetails.name}}</h4>
+          <p class="card-text">{{formattedReleaseDate}} | {{gameDetails.publishers[0].name}} | {{genres}}</p>
+          <p class="card-text">{{gameDetails.rating}} {{totalRatings}} Reviews</p>
+          <p class="card-text"><u>Plateformes :</u> {{platforms}}</p>
+          <div class="card-text" [innerHTML]="formattedDescription"></div>
+          <p class="card-text"><u>Disponible sur :</u> {{stores}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
