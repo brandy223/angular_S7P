@@ -14,6 +14,7 @@ import { CardComponent } from './card/card.component';
 import { HeroComponent } from './hero/hero.component';
 import { SearchComponent } from './search/search.component';
 import { ReactiveFormsModule } from '@angular/forms'
+import {PlatformsComponent} from "./platforms/platforms.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms'
     CardComponent,
     PaginationComponent,
     HeroComponent,
-    SearchComponent
+    SearchComponent,
+    PlatformsComponent,
   ],
   imports: [
     BrowserModule,

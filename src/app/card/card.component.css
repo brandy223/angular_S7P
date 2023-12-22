@@ -117,7 +117,6 @@ Classes
 .card-container {
     width: 400px;
     max-width: 400px; /* Largeur fixe de la carte */
-    height: 700px; /* Hauteur automatique pour garder le ratio */
     background-color: rgba(51, 51, 51, 0.5);
     border-radius: 15px;
     margin: 2em auto 1rem;
@@ -125,6 +124,17 @@ Classes
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Assure une distribution équilibrée des éléments */
+}
+
+.card-container {
+    /* Vos styles existants pour la carte... */
+    height: 700px; /* Hauteur pour les jeux */
+    /* Autres styles... */
+}
+
+.platform-card {
+    height: 500px; /* Hauteur réduite pour les plateformes */
+    /* Vous pouvez également ajuster d'autres styles si nécessaire */
 }
 
 div.flex-row {

@@ -38,9 +38,8 @@ export class JeuxComponent implements OnInit {
         this.currentPage = page;
         if (this.searchQuery) {
             this.rawgService.getGamesToFilter(this.searchQuery, this.currentPage, this.pageSize).subscribe(searchResult => {
-                this.games = searchResult.jeux;
-                // Pas besoin de mettre à jour totalGames et totalPages ici,
-                // car ils ne changent pas avec le changement de page
+                this.games = searchResult.items;
+
             });
         } else {
             this.loadGames();
@@ -49,7 +48,7 @@ export class JeuxComponent implements OnInit {
 
 
     onEvent(searchResult: SearchResult): void {
-        this.games = searchResult.jeux;
+        this.games = searchResult.items;
         this.totalGames = searchResult.count;
         this.totalPages = Math.ceil(this.totalGames / this.pageSize);
         this.currentPage = 1;

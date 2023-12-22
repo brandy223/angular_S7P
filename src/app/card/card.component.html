@@ -1,28 +1,44 @@
-<div class="card-container">
-    <a class="hero-image-container" routerLink="/jeux/{{game.id}}">
-        <img [src]="game.background_image" alt="{{ game.name }}" class="hero-image"/>
-    </a>
-    <main class="main-content">
-        <h1><a routerLink="/jeux/{{game.id}}">{{ game.name }}</a>
-            <p>{{ game.rating }} / {{ game.rating_top }}</p></h1>
-        <br>
-        <hr />
-        <br>
-        <div class="flex-row">
-            <ul>
-                <li *ngFor="let platformWrapper of game.parent_platforms" class="platform-item">
-                    {{ platformWrapper.platform.name === 'Apple Macintosh' ? 'Mac' : platformWrapper.platform.name }}
-                </li>
-            </ul>
-        </div>
-        <br>
-        <hr />
-
-        <div class="card-attribute">
-            <div *ngFor="let genre of game.genres">
-                <span class="genre-span">{{ genre.name }}</span>
+<div [ngClass]="{'card-container': true, 'platform-card': type === 'platform'}">
+    <ng-container *ngIf="type === 'game'">
+        <a class="hero-image-container" routerLink="/jeux/{{item.id}}">
+            <img [src]="item.background_image" alt="{{ item.name }}" class="hero-image"/>
+        </a>
+        <main class="main-content">
+            <h1><a routerLink="/jeux/{{item.id}}">{{ item.name }}</a>
+                <p>{{ item.rating }} / {{ item.rating_top }}</p>
+            </h1>
+            <br>
+            <hr/>
+            <br>
+            <div class="flex-row">
+                <ul>
+                    <li *ngFor="let platformWrapper of item.parent_platforms" class="platform-item">
+                        {{ platformWrapper.platform.name === 'Apple Macintosh' ? 'Mac' : platformWrapper.platform.name }}
+                    </li>
+                </ul>
             </div>
+            <br>
+            <hr/>
 
-        </div>
-    </main>
+
+            <div class="card-attribute">
+                <div *ngFor="let genre of item.genres">
+                    <span class="genre-span">{{ genre.name }}</span>
+                </div>
+
+            </div>
+        </main>
+    </ng-container>
+
+    <ng-container *ngIf="type === 'platform'">
+        <a class="hero-image-container" routerLink="/jeux/{{item.id}}">
+            <img [src]="item.image_background" alt="{{ item.name }}" class="hero-image"/>
+        </a>
+        <main class="main-content">
+            <h1><a routerLink="/jeux/{{item.id}}">{{ item.name }}</a>
+                <p>Number of games : {{ item.games_count }}</p>
+            </h1>
+
+        </main>
+    </ng-container>
 </div>

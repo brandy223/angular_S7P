@@ -181,7 +181,7 @@ export class SearchComponent {
         return this.rawgService.getGamesToFilter(searchValue).pipe(
             map(response => {
                 return {
-                    jeux: response.jeux,
+                    items: response.items,
                     count: response.count,
                     query: searchValue
                 };

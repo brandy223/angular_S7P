@@ -17,6 +17,10 @@ export class RawgService {
     return this.http.get(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}`);
   }
 
+  getPlatforms(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/platforms?key=${this.apiKey}&page=${page}&page_size=${pageSize}`);
+  }
+
   getGamedetails(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/games/${id}?key=${this.apiKey}`);
   }
@@ -24,7 +28,15 @@ export class RawgService {
   getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult> {
     return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}&ordering=-rating&page=${page}&page_size=${pageSize}`).pipe(
         map(response => {
-          return { jeux: response.results, count: response.count, query: search};
+          return { items: response.results, count: response.count, query: search};
+        })
+    );
+  }
+
+  getPlatformsToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+    return this.http.get<any>(`${this.baseUrl}/platforms?key=${this.apiKey}&search=${search}&page=${page}&page_size=${pageSize}`).pipe(
+        map(response => {
+          return { items: response.results, count: response.count, query: search};
         })
     );
   }
@@ -32,7 +44,7 @@ export class RawgService {
   getGamesByPlatform(platform: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&platforms=${platform}`).pipe(
         map(response => {
-          return { jeux: response.results, count: response.count, query: platform};
+          return { items: response.results, count: response.count, query: platform};
         })
     );
   }
@@ -40,7 +52,7 @@ export class RawgService {
   getGamesByPublisher(publisher: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&publishers=${publisher}`).pipe(
         map(response => {
-          return { jeux: response.results, count: response.count, query: publisher};
+          return { items: response.results, count: response.count, query: publisher};
         })
     );
   }
