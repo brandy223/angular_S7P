@@ -29,10 +29,17 @@ export class RawgService {
     );
   }
 
+  getGamesByPlatform(platform: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&platforms=${platform}`).pipe(
+        map(response => {
+          return { jeux: response.results, count: response.count, query: platform};
+        })
+    );
+  }
 
   /*getGamesContains(search: string): Observable<Jeu[]> {
-    return this.getGamesToFilter().pipe(
-        map((jeux: Jeu[]) => jeux.filter((el: Jeu) => el.name.toLowerCase().includes(search.toLowerCase())))
-    );
-  }*/
+  return this.getGamesToFilter().pipe(
+      map((jeux: Jeu[]) => jeux.filter((el: Jeu) => el.name.toLowerCase().includes(search.toLowerCase())))
+  );
+}*/
 }

@@ -1,26 +1,24 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <!-- Champ de recherche -->
             <form [formGroup]="searchForm">
                 <div>
                     <label>Search</label>
                     <input formControlName="search" type="text" class="form-control" placeholder="Recherche ..."/>
                 </div>
             </form>
-
         </div>
         <div class="col">
-            <!-- Premier champ de sélection -->
-            <select class="form-select">
-                <option selected>Choix 1</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
+            <form [formGroup]="searchForm">
+                <div>
+                    <label>Search by platform</label>
+                    <select formControlName="optionPlatform" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let platform of platforms" [value]="platform.id">{{ platform.name }}</option>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="col">
-            <!-- Deuxième champ de sélection -->
             <select class="form-select">
                 <option selected>Choix 2</option>
                 <option value="1">Option 1</option>

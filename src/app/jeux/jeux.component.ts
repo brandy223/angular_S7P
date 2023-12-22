@@ -53,12 +53,8 @@ export class JeuxComponent implements OnInit {
         this.totalGames = searchResult.count;
         this.totalPages = Math.ceil(this.totalGames / this.pageSize);
         this.currentPage = 1;
-
         this.searchQuery = searchResult.query;
     }
-
-
-
 
 }
 
