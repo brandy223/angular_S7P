@@ -30,6 +30,7 @@ export class SearchComponent {
   searchForm: FormGroup;
   searchCtrl: FormControl<string>;
   optionPlatform: FormControl<string | null>;
+  optionPublisher: FormControl<string | null>;
 
   games: Jeu[] = [];
 
@@ -77,15 +78,62 @@ export class SearchComponent {
     { id: 107, name: 'SEGA Saturn' },
 ];
 
+  publishers = [
+      {
+        "id": 354,
+        "name": "Electronic Arts"
+      },
+      {
+        "id": 308,
+        "name": "Square Enix"
+      },
+      {
+        "id": 20987,
+        "name": "Microsoft Studios"
+      },
+      {
+        "id": 918,
+        "name": "Ubisoft Entertainment"
+      },
+      {
+        "id": 3408,
+        "name": "SEGA"
+      },
+      {
+        "id": 3399,
+        "name": "Valve"
+      },
+      {
+        "id": 358,
+        "name": "2K Games"
+      },
+      {
+        "id": 339,
+        "name": "Bethesda Softworks"
+      },
+      {
+        "id": 2150,
+        "name": "Capcom"
+      },
+      {
+        "id": 19651,
+        "name": "Feral Interactive"
+      }
+    ];
+
+
+
   constructor(private rawgService: RawgService) {
     this.searchCtrl = new FormControl("", {
       validators: [Validators.required],
       nonNullable: true,
     });
     this.optionPlatform = new FormControl("", null);
+    this.optionPublisher = new FormControl("", null);
     this.searchForm = new UntypedFormGroup({
       search: this.searchCtrl,
       optionPlatform: this.optionPlatform,
+      optionPublisher: this.optionPublisher,
     });
   }
 
@@ -110,10 +158,24 @@ export class SearchComponent {
         }
       })
     )
-    .subscribe((filteredGames)  :any => {
+    .subscribe((filteredGames) :any  => {
       this.eventOut.emit(filteredGames);
     });
-    }
+
+    this.optionPublisher.valueChanges
+    .pipe(
+      switchMap((idValue) => {
+        const publisherId = Number(idValue);
+        if (!isNaN(publisherId)) {
+          return this.rawgService.getGamesByPublisher(publisherId);
+        } else {
+          return of([]);
+        }
+      })
+    ).subscribe((filteredGames)  :any => {
+      this.eventOut.emit(filteredGames);
+    });
+  }
 
     submit(searchValue: string): Observable<SearchResult> {
         return this.rawgService.getGamesToFilter(searchValue).pipe(

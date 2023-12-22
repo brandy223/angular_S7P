@@ -19,12 +19,14 @@
             </form>
         </div>
         <div class="col">
-            <select class="form-select">
-                <option selected>Choix 2</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
+            <form [formGroup]="searchForm">
+                <div>
+                    <label>Search by platform</label>
+                    <select formControlName="optionPublisher" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let publisher of publishers" [value]="publisher.id">{{ publisher.name }}</option>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="col">
             <!-- Troisième champ de sélection -->

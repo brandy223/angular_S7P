@@ -37,6 +37,14 @@ export class RawgService {
     );
   }
 
+  getGamesByPublisher(publisher: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&publishers=${publisher}`).pipe(
+        map(response => {
+          return { jeux: response.results, count: response.count, query: publisher};
+        })
+    );
+  }
+
   /*getGamesContains(search: string): Observable<Jeu[]> {
   return this.getGamesToFilter().pipe(
       map((jeux: Jeu[]) => jeux.filter((el: Jeu) => el.name.toLowerCase().includes(search.toLowerCase())))

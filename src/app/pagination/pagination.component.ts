@@ -22,7 +22,6 @@ export class PaginationComponent {
       const middlePages = [this.currentPage - 1, this.currentPage, this.currentPage + 1].filter(p => p > 2 && p < this.totalPages - 1);
       pages = [...new Set([...startPages, ...middlePages, ...endPages])]; // Supprimer les doublons
 
-      // Ajouter des points de suspension si nécessaire
       if (middlePages[0] > 3) {
         pages.splice(2, 0, -1); // Points de suspension après les premières pages
       }
