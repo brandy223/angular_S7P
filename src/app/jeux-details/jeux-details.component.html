@@ -4,23 +4,23 @@
       <div class="card-content">
         <div class="card-img-column">
           <div class="card-img-body">
-            <img class="card-img" src="{{gameDetails.background_image_additional}}" alt="Card image cap">
+            <img class="card-img" src="{{gameDetails.background_image}}" alt="Card image cap">
             <div class="card-links">
-              <a href="{{gameDetails.website}}" class="btn btn-outline-primary">Site officiel</a>
-              <a href="{{gameDetails.metacritic_url}}" class="btn btn-outline-primary">Metacritic</a>
-              <a href="{{gameDetails.reddit_url}}" class="btn btn-outline-primary">Reddit</a>
+              <a href="{{gameDetails.urls.website}}" class="btn btn-outline-primary">Site officiel</a>
+              <a href="{{gameDetails.urls.metacritic}}" class="btn btn-outline-primary">Metacritic</a>
+              <a href="{{gameDetails.urls.reddit}}" class="btn btn-outline-primary">Reddit</a>
             </div>
           </div>
         </div>
         <div class="card-body">
           <h4 class="card-title">{{ gameDetails.name }}</h4>
-          <p class="card-text">{{ formattedReleaseDate }} | {{ gameDetails.publishers[0].name }} | {{ genres }}</p>
+          <p class="card-text">{{ gameDetails.released }} | {{ gameDetails.publishers }} | {{ gameDetails.genres }}</p>
           <p class="card-text"><u>Note globale :</u> {{ gameDetails.rating }} </p>
-          <p class="card-text">{{ totalRatings }} Reviews</p>
+          <p class="card-text">{{ gameDetails.totalRatings }} Reviews</p>
 
-          <p class="card-text"><u>Plateformes :</u> {{ platforms }}</p>
-          <div class="card-text" style="margin-right: 15px" [innerHTML]="formattedDescription"></div>
-          <p class="card-text"><u>Disponible sur :</u> {{ stores }}</p>
+          <p class="card-text"><u>Plateformes :</u> {{ gameDetails.platforms }}</p>
+          <div class="card-text" style="margin-right: 15px" [innerHTML]="gameDetails.description"></div>
+          <p class="card-text"><u>Disponible sur :</u> {{ gameDetails.stores }}</p>
         </div>
       </div>
     </div>
