@@ -1,63 +1,71 @@
-
-
-.row {
-    display: flex;
-    justify-content: center; /* Centre les colonnes dans la rangée */
-    flex-wrap: wrap; /* Permet aux colonnes de passer à la ligne suivante sur les petits écrans */
-    width: 100%;
-}
-
-.column {
-    flex: 1; /* Chaque colonne prend un espace égal */
-    max-width: 33.33%; /* Chaque colonne occupe un tiers de la largeur de la rangée */
-    margin-bottom: 16px; /* Espacement en bas */
-    padding: 0 8px; /* Padding des côtés */
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-}
-
 .about-section {
-    padding: 50px;
+    margin: 20px;
     text-align: center;
-    color: white;
 }
 
-.container {
-    padding: 0 16px;
+/* Style général des cartes */
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    width: auto;
 }
 
-.container::after, .row::after {
-    content: "";
-    clear: both;
-    display: table;
+.card-img-top {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .title {
-    color: grey;
+    font-weight: bold;
+    color: #555;
 }
 
-.button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
+
+@media (max-width: 1440px) {
+    .card-img-top {
+        height: 30vw;
+    }
+
+}
+/* Adapter la taille des cartes et leur contenu en fonction de la taille de l'écran */
+@media (max-width: 768px) {
+
+    .row > [class*='col-'] {
+        margin-bottom: 20px; /* Ajoute un espace en bas de chaque colonne */
+    }
+
+    .card {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .card-img-top {
+        height: 500px; /* Ajuster la hauteur de l'image si nécessaire */
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
 }
 
-.button:hover {
-    background-color: #555;
-}
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 500px;
+    }
 
-@media screen and (max-width: 650px) {
-    .column {
-        width: 100%; /* Chaque colonne prend toute la largeur sur les petits écrans */
-        display: block; /* Affichage en bloc pour les empiler verticalement */
+    .card-title {
+        font-size: 16px;
     }
 }
