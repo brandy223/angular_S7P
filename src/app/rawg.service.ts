@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { Jeu } from './jeu.interface';
+import {SearchResult} from "./search-result";
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,18 @@ export class RawgService {
     return this.http.get(`${this.baseUrl}/games/${id}?key=${this.apiKey}`);
   }
 
-  getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<Jeu[]> {
-    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}&ordering=-rating`).pipe(
-        map(response => response.results)
+  getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+    return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}&ordering=-rating&page=${page}&page_size=${pageSize}`).pipe(
+        map(response => {
+          return { jeux: response.results, count: response.count, query: search};
+        })
     );
   }
 
-  getGamesContains(search: string): Observable<Jeu[]> {
+
+  /*getGamesContains(search: string): Observable<Jeu[]> {
     return this.getGamesToFilter().pipe(
         map((jeux: Jeu[]) => jeux.filter((el: Jeu) => el.name.toLowerCase().includes(search.toLowerCase())))
     );
-  }
+  }*/
 }

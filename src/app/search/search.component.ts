@@ -4,6 +4,7 @@ import {debounceTime, filter, map, Observable, startWith, switchMap, tap} from "
 import {RawgService} from "../rawg.service";
 import {JeuxComponent} from "../jeux/jeux.component";
 import {Jeu} from "../jeu.interface";
+import {SearchResult} from "../search-result";
 
 @Component({
   selector: 'app-search',
@@ -26,18 +27,26 @@ export class SearchComponent {
       })
     }
 
-    @Output() eventOut = new EventEmitter<Jeu[]>()
+    @Output() eventOut = new EventEmitter<SearchResult>();
     ngOnInit(): void {
         this.searchCtrl.valueChanges.pipe(
             filter(searchValue => searchValue !== ''),
             switchMap(searchValue => this.submit(searchValue))
-        ).subscribe(filteredGames => {
-            this.games = filteredGames;
-            this.eventOut.emit(this.games);
+        ).subscribe(searchResult => {
+            this.games = searchResult.jeux;
+            this.eventOut.emit(searchResult); // Emit SearchResult
         });
     }
 
-    submit(searchValue: string): Observable<Jeu[]> {
-        return this.rawgService.getGamesToFilter(searchValue);
+    submit(searchValue: string): Observable<SearchResult> {
+        return this.rawgService.getGamesToFilter(searchValue).pipe(
+            map(response => {
+                return {
+                    jeux: response.jeux,
+                    count: response.count,
+                    query: searchValue
+                };
+            })
+        );
     }
 }

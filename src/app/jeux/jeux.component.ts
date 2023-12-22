@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RawgService } from '../rawg.service';
+import {Jeu} from "../jeu.interface";
+import {SearchResult} from "../search-result";
 
 @Component({
   selector: 'app-jeux',
@@ -12,6 +14,8 @@ export class JeuxComponent implements OnInit {
     totalGames: number = 100;
     pageSize: number = 20;
     totalPages: number = 5;
+
+    searchQuery: string = '';
 
     constructor(private rawgService: RawgService) { }
 
@@ -27,13 +31,34 @@ export class JeuxComponent implements OnInit {
         });
     }
 
+
+
+    // Dans JeuxComponent
     onPageChange(page: number): void {
         this.currentPage = page;
-        this.loadGames();
+        if (this.searchQuery) {
+            this.rawgService.getGamesToFilter(this.searchQuery, this.currentPage, this.pageSize).subscribe(searchResult => {
+                this.games = searchResult.jeux;
+                // Pas besoin de mettre à jour totalGames et totalPages ici,
+                // car ils ne changent pas avec le changement de page
+            });
+        } else {
+            this.loadGames();
+        }
     }
 
-    onEvent = (event: any) => {
-        this.games = event;
-    };
+
+    onEvent(searchResult: SearchResult): void {
+        this.games = searchResult.jeux;
+        this.totalGames = searchResult.count;
+        this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+        this.currentPage = 1;
+
+        this.searchQuery = searchResult.query;
+    }
+
+
+
+
 }
 
