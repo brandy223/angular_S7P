@@ -6,19 +6,20 @@ import {
   Validators,
 } from "@angular/forms";
 import {
-  debounceTime,
-  filter,
-  map,
-  Observable,
-  startWith,
-  switchMap,
-  tap,
+    catchError,
+    debounceTime,
+    filter,
+    map,
+    Observable,
+    startWith,
+    switchMap,
+    tap,
 } from "rxjs";
 import { RawgService } from "../rawg.service";
 import { JeuxComponent } from "../jeux/jeux.component";
 import { Jeu } from "../jeu.interface";
 import { NgPlural } from "@angular/common";
-import { of } from 'rxjs';
+import { of, combineLatest } from 'rxjs';
 import {SearchResult} from "../search-result";
 
 @Component({
@@ -31,6 +32,7 @@ export class SearchComponent {
   searchCtrl: FormControl<string>;
   optionPlatform: FormControl<string | null>;
   optionPublisher: FormControl<string | null>;
+  optionGenre: FormControl<string | null>;
 
   games: Jeu[] = [];
 
@@ -121,7 +123,27 @@ export class SearchComponent {
       }
     ];
 
-
+    genres: { id: number; name: string; }[] = [
+        { id: 4, name: 'Action' },
+        { id: 51, name: 'Indie' },
+        { id: 3, name: 'Adventure' },
+        { id: 5, name: 'RPG' },
+        { id: 10, name: 'Strategy' },
+        { id: 2, name: 'Shooter' },
+        { id: 40, name: 'Casual' },
+        { id: 14, name: 'Simulation' },
+        { id: 7, name: 'Puzzle' },
+        { id: 11, name: 'Arcade' },
+        { id: 83, name: 'Platformer' },
+        { id: 59, name: 'Massively Multiplayer' },
+        { id: 1, name: 'Racing' },
+        { id: 15, name: 'Sports' },
+        { id: 6, name: 'Fighting' },
+        { id: 19, name: 'Family' },
+        { id: 28, name: 'Board Games' },
+        { id: 34, name: 'Educational' },
+        { id: 17, name: 'Card' },
+    ];
 
   constructor(private rawgService: RawgService) {
     this.searchCtrl = new FormControl("", {
@@ -130,54 +152,43 @@ export class SearchComponent {
     });
     this.optionPlatform = new FormControl("", null);
     this.optionPublisher = new FormControl("", null);
+    this.optionGenre = new FormControl("", null);
     this.searchForm = new UntypedFormGroup({
       search: this.searchCtrl,
       optionPlatform: this.optionPlatform,
       optionPublisher: this.optionPublisher,
+        optionGenre: this.optionGenre,
     });
   }
 
-  ngOnInit(): void {
-    this.searchCtrl.valueChanges
-      .pipe(
-        filter((searchValue) => searchValue !== ""),
-        switchMap((searchValue) => this.submit(searchValue))
-      )
-      .subscribe((filteredGames) => {
-        this.eventOut.emit(filteredGames);
-      });
+    ngOnInit(): void {
+        const search$ = this.searchCtrl.valueChanges.pipe(
+            debounceTime(300),
+            filter(searchValue => searchValue.length > 0 || searchValue.length === 0)
+        );
 
-    this.optionPlatform.valueChanges
-    .pipe(
-      switchMap((idValue) => {
-        const platformId = Number(idValue);
-        if (!isNaN(platformId)) {
-          return this.rawgService.getGamesByPlatform(platformId);
-        } else {
-          return of([]);
-        }
-      })
-    )
-    .subscribe((filteredGames) :any  => {
-      this.eventOut.emit(filteredGames);
-    });
+        const filters$ = combineLatest([
+            this.optionPlatform.valueChanges.pipe(startWith(null)),
+            this.optionPublisher.valueChanges.pipe(startWith(null)),
+            this.optionGenre.valueChanges.pipe(startWith(null))
+        ]);
 
-    this.optionPublisher.valueChanges
-    .pipe(
-      switchMap((idValue) => {
-        const publisherId = Number(idValue);
-        if (!isNaN(publisherId)) {
-          return this.rawgService.getGamesByPublisher(publisherId);
-        } else {
-          return of([]);
-        }
-      })
-    ).subscribe((filteredGames)  :any => {
-      this.eventOut.emit(filteredGames);
-    });
-  }
-
-    submit(searchValue: string): Observable<SearchResult> {
+        combineLatest([search$, filters$])
+            .pipe(
+                switchMap(([searchValue, [platformId, publisherId, genreId]]) => {
+                    const platform = platformId ? Number(platformId) : undefined;
+                    const publisher = publisherId ? Number(publisherId) : undefined;
+                    const genre = genreId ? Number(genreId) : undefined;
+                    return this.rawgService.getGames(searchValue, platform, publisher, genre);
+                }),
+                catchError(error => {
+                    console.error('Error fetching games:', error);
+                    return of({ items: [], count: 0, query: '' });
+                })
+            )
+            .subscribe((filteredGames) => this.eventOut.emit(filteredGames));
+    }
+  /*  submit(searchValue: string): Observable<SearchResult> {
         return this.rawgService.getGamesToFilter(searchValue).pipe(
             map(response => {
                 return {
@@ -187,5 +198,5 @@ export class SearchComponent {
                 };
             })
         );
-    }
+    }*/
 }

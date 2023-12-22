@@ -21,7 +21,7 @@
         <div class="col">
             <form [formGroup]="searchForm">
                 <div>
-                    <label>Search by platform</label>
+                    <label>Search by publisher</label>
                     <select formControlName="optionPublisher" class="form-select" aria-label="Default select example">
                         <option *ngFor="let publisher of publishers" [value]="publisher.id">{{ publisher.name }}</option>
                     </select>
@@ -29,13 +29,14 @@
             </form>
         </div>
         <div class="col">
-            <!-- Troisième champ de sélection -->
-            <select class="form-select">
-                <option selected>Choix 3</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
+            <form [formGroup]="searchForm">
+                <div>
+                    <label>Search by genre</label>
+                    <select formControlName="optionGenre" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 </div>

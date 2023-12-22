@@ -24,8 +24,8 @@ export class JeuxComponent implements OnInit {
     }
 
     loadGames(): void {
-        this.rawgService.getGames(this.currentPage, this.pageSize).subscribe(data => {
-            this.games = data.results;
+        this.rawgService.getGames("", this.currentPage, this.pageSize).subscribe(data => {
+            this.games = data.items;
             this.totalGames = data.count;
             this.totalPages = Math.ceil(this.totalGames / this.pageSize);
         });

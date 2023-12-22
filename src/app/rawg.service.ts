@@ -13,9 +13,28 @@ export class RawgService {
 
   constructor(private http: HttpClient) { }
 
-  getGames(page: number = 1, pageSize: number = 20): Observable<any> {
-    return this.http.get(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}`);
-  }
+    getGames(search: string, platform?: number, publisher?: number, genre?: number, page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+        let queryParams = `key=${this.apiKey}&page=${page}&page_size=${pageSize}`;
+
+        if (search) {
+            queryParams += `&search=${search}`;
+        }
+        if (platform) {
+            queryParams += `&platforms=${platform}`;
+        }
+        if (publisher) {
+            queryParams += `&publishers=${publisher}`;
+        }
+        if (genre) {
+            queryParams += `&genres=${genre}`;
+        }
+
+        return this.http.get<any>(`${this.baseUrl}/games?${queryParams}`).pipe(
+            map(response => {
+                return { items: response.results, count: response.count, query: search };
+            })
+        );
+    }
 
   getPlatforms(page: number = 1, pageSize: number = 20): Observable<any> {
     return this.http.get(`${this.baseUrl}/platforms?key=${this.apiKey}&page=${page}&page_size=${pageSize}`);
@@ -56,6 +75,14 @@ export class RawgService {
         })
     );
   }
+
+    getGamesByGenre(genre: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&genres=${genre}`).pipe(
+            map(response => {
+                return { items: response.results, count: response.count, query: genre};
+            })
+        );
+    }
 
   /*getGamesContains(search: string): Observable<Jeu[]> {
   return this.getGamesToFilter().pipe(
