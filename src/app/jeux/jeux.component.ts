@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RawgService } from '../rawg.service';
-import {Jeu} from "../jeu.interface";
 import {SearchResult} from "../search-result";
 
 @Component({
@@ -24,7 +23,7 @@ export class JeuxComponent implements OnInit {
     }
 
     loadGames(): void {
-        this.rawgService.getGames("", this.currentPage, this.pageSize).subscribe(data => {
+        this.rawgService.getGames(this.currentPage, this.pageSize, "").subscribe(data => {
             this.games = data.items;
             this.totalGames = data.count;
             this.totalPages = Math.ceil(this.totalGames / this.pageSize);
@@ -48,6 +47,15 @@ export class JeuxComponent implements OnInit {
 
 
     onEvent(searchResult: SearchResult): void {
+        this.games = searchResult.items;
+        this.totalGames = searchResult.count;
+        this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+        this.currentPage = 1;
+        this.searchQuery = searchResult.query;
+    }
+
+    onRedirectToDetails(searchResult: SearchResult): void {
+        console.log("onRedirectToDetails");
         this.games = searchResult.items;
         this.totalGames = searchResult.count;
         this.totalPages = Math.ceil(this.totalGames / this.pageSize);

@@ -13,19 +13,19 @@ export class RawgService {
 
   constructor(private http: HttpClient) { }
 
-    getGames(search: string, platform?: number, publisher?: number, genre?: number, page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+    getGames(page: number = 1, pageSize: number = 20, search: string, platform?: number, publisher?: number, genre?: number ): Observable<SearchResult> {
         let queryParams = `key=${this.apiKey}&page=${page}&page_size=${pageSize}`;
 
         if (search) {
             queryParams += `&search=${search}`;
         }
-        if (platform) {
+        if (platform !== undefined) {
             queryParams += `&platforms=${platform}`;
         }
-        if (publisher) {
+        if (publisher !== undefined) {
             queryParams += `&publishers=${publisher}`;
         }
-        if (genre) {
+        if (genre !== undefined) {
             queryParams += `&genres=${genre}`;
         }
 
@@ -59,7 +59,7 @@ export class RawgService {
         })
     );
   }
-
+/*
   getGamesByPlatform(platform: number, page: number = 1, pageSize: number = 20 ): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&page=${page}&page_size=${pageSize}&platforms=${platform}`).pipe(
         map(response => {
@@ -82,7 +82,7 @@ export class RawgService {
                 return { items: response.results, count: response.count, query: genre};
             })
         );
-    }
+    }*/
 
   /*getGamesContains(search: string): Observable<Jeu[]> {
   return this.getGamesToFilter().pipe(

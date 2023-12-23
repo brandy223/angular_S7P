@@ -28,143 +28,144 @@ import {SearchResult} from "../search-result";
   styleUrls: ["./search.component.css"],
 })
 export class SearchComponent {
-  searchForm: FormGroup;
-  searchCtrl: FormControl<string>;
-  optionPlatform: FormControl<string | null>;
-  optionPublisher: FormControl<string | null>;
-  optionGenre: FormControl<string | null>;
+    searchForm: FormGroup;
+    searchCtrl: FormControl<string>;
+    optionPlatform: FormControl<string | null>;
+    optionPublisher: FormControl<string | null>;
+    optionGenre: FormControl<string | null>;
 
-  games: Jeu[] = [];
+    games: Jeu[] = [];
 
-  @Output() eventOut = new EventEmitter<SearchResult>();
+    @Output() eventOut = new EventEmitter<SearchResult>();
 
-  platforms = [
-    { id: 4, name: 'PC' },
-    { id: 119, name: 'SEGA CD' },
-    { id: 117, name: 'SEGA 32X' },
-    { id: 74, name: 'SEGA Master System' },
-    { id: 106, name: 'Dreamcast' },
-    { id: 111, name: '3DO' },
-    { id: 112, name: 'Jaguar' },
-    { id: 77, name: 'Game Gear' },
-    { id: 12, name: 'Neo Geo' },
-    { id: 6, name: 'Linux' },
-    { id: 14, name: 'Xbox 360' },
-    { id: 80, name: 'Xbox' },
-    { id: 16, name: 'PlayStation 3' },
-    { id: 15, name: 'PlayStation 2' },
-    { id: 27, name: 'PlayStation' },
-    { id: 19, name: 'PS Vita' },
-    { id: 17, name: 'PSP' },
-    { id: 10, name: 'Wii U' },
-    { id: 11, name: 'Wii' },
-    { id: 105, name: 'GameCube' },
-    { id: 83, name: 'Nintendo 64' },
-    { id: 24, name: 'Game Boy Advance' },
-    { id: 43, name: 'Game Boy Color' },
-    { id: 26, name: 'Game Boy' },
-    { id: 79, name: 'SNES' },
-    { id: 49, name: 'NES' },
-    { id: 55, name: 'Classic Macintosh' },
-    { id: 41, name: 'Apple II' },
-    { id: 166, name: 'Commodore / Amiga' },
-    { id: 28, name: 'Atari 7800' },
-    { id: 31, name: 'Atari 5200' },
-    { id: 23, name: 'Atari 2600' },
-    { id: 22, name: 'Atari Flashback' },
-    { id: 25, name: 'Atari 8-bit' },
-    { id: 34, name: 'Atari ST' },
-    { id: 46, name: 'Atari Lynx' },
-    { id: 50, name: 'Atari XEGS' },
-    { id: 167, name: 'Genesis' },
-    { id: 107, name: 'SEGA Saturn' },
-];
+    platforms = [
+        {id: 4, name: 'PC'},
+        {id: 119, name: 'SEGA CD'},
+        {id: 117, name: 'SEGA 32X'},
+        {id: 74, name: 'SEGA Master System'},
+        {id: 106, name: 'Dreamcast'},
+        {id: 111, name: '3DO'},
+        {id: 112, name: 'Jaguar'},
+        {id: 77, name: 'Game Gear'},
+        {id: 12, name: 'Neo Geo'},
+        {id: 6, name: 'Linux'},
+        {id: 14, name: 'Xbox 360'},
+        {id: 80, name: 'Xbox'},
+        {id: 16, name: 'PlayStation 3'},
+        {id: 15, name: 'PlayStation 2'},
+        {id: 27, name: 'PlayStation'},
+        {id: 19, name: 'PS Vita'},
+        {id: 17, name: 'PSP'},
+        {id: 10, name: 'Wii U'},
+        {id: 11, name: 'Wii'},
+        {id: 105, name: 'GameCube'},
+        {id: 83, name: 'Nintendo 64'},
+        {id: 24, name: 'Game Boy Advance'},
+        {id: 43, name: 'Game Boy Color'},
+        {id: 26, name: 'Game Boy'},
+        {id: 79, name: 'SNES'},
+        {id: 49, name: 'NES'},
+        {id: 55, name: 'Classic Macintosh'},
+        {id: 41, name: 'Apple II'},
+        {id: 166, name: 'Commodore / Amiga'},
+        {id: 28, name: 'Atari 7800'},
+        {id: 31, name: 'Atari 5200'},
+        {id: 23, name: 'Atari 2600'},
+        {id: 22, name: 'Atari Flashback'},
+        {id: 25, name: 'Atari 8-bit'},
+        {id: 34, name: 'Atari ST'},
+        {id: 46, name: 'Atari Lynx'},
+        {id: 50, name: 'Atari XEGS'},
+        {id: 167, name: 'Genesis'},
+        {id: 107, name: 'SEGA Saturn'},
+    ];
 
-  publishers = [
-      {
-        "id": 354,
-        "name": "Electronic Arts"
-      },
-      {
-        "id": 308,
-        "name": "Square Enix"
-      },
-      {
-        "id": 20987,
-        "name": "Microsoft Studios"
-      },
-      {
-        "id": 918,
-        "name": "Ubisoft Entertainment"
-      },
-      {
-        "id": 3408,
-        "name": "SEGA"
-      },
-      {
-        "id": 3399,
-        "name": "Valve"
-      },
-      {
-        "id": 358,
-        "name": "2K Games"
-      },
-      {
-        "id": 339,
-        "name": "Bethesda Softworks"
-      },
-      {
-        "id": 2150,
-        "name": "Capcom"
-      },
-      {
-        "id": 19651,
-        "name": "Feral Interactive"
-      }
+    publishers = [
+        {
+            "id": 354,
+            "name": "Electronic Arts"
+        },
+        {
+            "id": 308,
+            "name": "Square Enix"
+        },
+        {
+            "id": 20987,
+            "name": "Microsoft Studios"
+        },
+        {
+            "id": 918,
+            "name": "Ubisoft Entertainment"
+        },
+        {
+            "id": 3408,
+            "name": "SEGA"
+        },
+        {
+            "id": 3399,
+            "name": "Valve"
+        },
+        {
+            "id": 358,
+            "name": "2K Games"
+        },
+        {
+            "id": 339,
+            "name": "Bethesda Softworks"
+        },
+        {
+            "id": 2150,
+            "name": "Capcom"
+        },
+        {
+            "id": 19651,
+            "name": "Feral Interactive"
+        }
     ];
 
     genres: { id: number; name: string; }[] = [
-        { id: 4, name: 'Action' },
-        { id: 51, name: 'Indie' },
-        { id: 3, name: 'Adventure' },
-        { id: 5, name: 'RPG' },
-        { id: 10, name: 'Strategy' },
-        { id: 2, name: 'Shooter' },
-        { id: 40, name: 'Casual' },
-        { id: 14, name: 'Simulation' },
-        { id: 7, name: 'Puzzle' },
-        { id: 11, name: 'Arcade' },
-        { id: 83, name: 'Platformer' },
-        { id: 59, name: 'Massively Multiplayer' },
-        { id: 1, name: 'Racing' },
-        { id: 15, name: 'Sports' },
-        { id: 6, name: 'Fighting' },
-        { id: 19, name: 'Family' },
-        { id: 28, name: 'Board Games' },
-        { id: 34, name: 'Educational' },
-        { id: 17, name: 'Card' },
+        {id: 4, name: 'Action'},
+        {id: 51, name: 'Indie'},
+        {id: 3, name: 'Adventure'},
+        {id: 5, name: 'RPG'},
+        {id: 10, name: 'Strategy'},
+        {id: 2, name: 'Shooter'},
+        {id: 40, name: 'Casual'},
+        {id: 14, name: 'Simulation'},
+        {id: 7, name: 'Puzzle'},
+        {id: 11, name: 'Arcade'},
+        {id: 83, name: 'Platformer'},
+        {id: 59, name: 'Massively Multiplayer'},
+        {id: 1, name: 'Racing'},
+        {id: 15, name: 'Sports'},
+        {id: 6, name: 'Fighting'},
+        {id: 19, name: 'Family'},
+        {id: 28, name: 'Board Games'},
+        {id: 34, name: 'Educational'},
+        {id: 17, name: 'Card'},
     ];
 
-  constructor(private rawgService: RawgService) {
-    this.searchCtrl = new FormControl("", {
-      validators: [Validators.required],
-      nonNullable: true,
-    });
-    this.optionPlatform = new FormControl("", null);
-    this.optionPublisher = new FormControl("", null);
-    this.optionGenre = new FormControl("", null);
-    this.searchForm = new UntypedFormGroup({
-      search: this.searchCtrl,
-      optionPlatform: this.optionPlatform,
-      optionPublisher: this.optionPublisher,
-        optionGenre: this.optionGenre,
-    });
-  }
+    constructor(private rawgService: RawgService) {
+        this.searchCtrl = new FormControl("", {
+            validators: [Validators.required],
+            nonNullable: true,
+        });
+        this.optionPlatform = new FormControl("", null);
+        this.optionPublisher = new FormControl("", null);
+        this.optionGenre = new FormControl("", null);
+        this.searchForm = new UntypedFormGroup({
+            search: this.searchCtrl,
+            optionPlatform: this.optionPlatform,
+            optionPublisher: this.optionPublisher,
+            optionGenre: this.optionGenre,
+        });
+    }
 
     ngOnInit(): void {
         const search$ = this.searchCtrl.valueChanges.pipe(
             debounceTime(300),
-            filter(searchValue => searchValue.length > 0 || searchValue.length === 0)
+            filter(searchValue => searchValue.length > 0 || searchValue.length === 0),
+            startWith('') // Ensure an initial value is emitted
         );
 
         const filters$ = combineLatest([
@@ -179,15 +180,23 @@ export class SearchComponent {
                     const platform = platformId ? Number(platformId) : undefined;
                     const publisher = publisherId ? Number(publisherId) : undefined;
                     const genre = genreId ? Number(genreId) : undefined;
-                    return this.rawgService.getGames(searchValue, platform, publisher, genre);
+                    return this.rawgService.getGames(1, 20, searchValue, platform, publisher, genre);
                 }),
                 catchError(error => {
                     console.error('Error fetching games:', error);
-                    return of({ items: [], count: 0, query: '' });
+                    return of({items: [], count: 0, query: ''});
                 })
             )
             .subscribe((filteredGames) => this.eventOut.emit(filteredGames));
     }
+
+    reset(): void {
+        this.searchCtrl.setValue("");
+        this.optionPlatform.setValue(null);
+        this.optionPublisher.setValue(null);
+        this.optionGenre.setValue(null);
+    }
+
   /*  submit(searchValue: string): Observable<SearchResult> {
         return this.rawgService.getGamesToFilter(searchValue).pipe(
             map(response => {

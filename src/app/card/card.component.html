@@ -31,11 +31,11 @@
     </ng-container>
 
     <ng-container *ngIf="type === 'platform'">
-        <a class="hero-image-container" routerLink="/jeux/{{item.id}}">
+        <a (click)="redirectToDetails()"  routerLink="/jeux" class="hero-image-container">
             <img [src]="item.image_background" alt="{{ item.name }}" class="hero-image"/>
         </a>
         <main class="main-content">
-            <h1><a routerLink="/jeux/{{item.id}}">{{ item.name }}</a>
+            <h1><a (click)="redirectToDetails()"  routerLink="/jeux">{{ item.name }}</a>
                 <p>Number of games : {{ item.games_count }}</p>
             </h1>
 
