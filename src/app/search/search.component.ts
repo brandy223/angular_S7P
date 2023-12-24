@@ -34,9 +34,10 @@ export class SearchComponent {
     optionPublisher: FormControl<string | null>;
     optionGenre: FormControl<string | null>;
 
-    games: Jeu[] = [];
+  games: Jeu[] = [];
+  lastQuery: SearchResult<Jeu>;
 
-    @Output() eventOut = new EventEmitter<SearchResult>();
+  @Output() eventOut = new EventEmitter<SearchResult<Jeu>>();
 
     platforms = [
         {id: 4, name: 'PC'},
@@ -145,21 +146,23 @@ export class SearchComponent {
         {id: 17, name: 'Card'},
     ];
 
-    constructor(private rawgService: RawgService) {
-        this.searchCtrl = new FormControl("", {
-            validators: [Validators.required],
-            nonNullable: true,
-        });
-        this.optionPlatform = new FormControl("", null);
-        this.optionPublisher = new FormControl("", null);
-        this.optionGenre = new FormControl("", null);
-        this.searchForm = new UntypedFormGroup({
-            search: this.searchCtrl,
-            optionPlatform: this.optionPlatform,
-            optionPublisher: this.optionPublisher,
-            optionGenre: this.optionGenre,
-        });
-    }
+  constructor(private rawgService: RawgService) {
+    this.searchCtrl = new FormControl("", {
+      validators: [Validators.required],
+      nonNullable: true,
+    });
+    this.optionPlatform = new FormControl("", null);
+    this.optionPublisher = new FormControl("", null);
+    this.optionGenre = new FormControl("", null);
+    this.searchForm = new UntypedFormGroup({
+      search: this.searchCtrl,
+      optionPlatform: this.optionPlatform,
+      optionPublisher: this.optionPublisher,
+      optionGenre: this.optionGenre,
+    });
+    const lastQuery = localStorage.getItem('lastQuery');
+    this.lastQuery = lastQuery ? JSON.parse(lastQuery) : { jeux: [], count: 100, query: ''};
+  }
 
     ngOnInit(): void {
         const search$ = this.searchCtrl.valueChanges.pipe(
@@ -180,7 +183,7 @@ export class SearchComponent {
                     const platform = platformId ? Number(platformId) : undefined;
                     const publisher = publisherId ? Number(publisherId) : undefined;
                     const genre = genreId ? Number(genreId) : undefined;
-                    return this.rawgService.getGames(1, 20, searchValue, platform, publisher, genre);
+                  return this.rawgService.getGames(searchValue as string, platform, publisher, genre, 1, 20);
                 }),
                 catchError(error => {
                     console.error('Error fetching games:', error);

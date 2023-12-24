@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { Jeu } from './jeu.interface';
 import {SearchResult} from "./search-result";
+import {Plateforme} from "./platform.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class RawgService {
 
   constructor(private http: HttpClient) { }
 
-    getGames(page: number = 1, pageSize: number = 20, search: string, platform?: number, publisher?: number, genre?: number ): Observable<SearchResult> {
+  getGames(search: string, platform?: number, publisher?: number, genre?: number, page: number = 1, pageSize: number = 20): Observable<SearchResult<Jeu>> {
         let queryParams = `key=${this.apiKey}&page=${page}&page_size=${pageSize}`;
 
         if (search) {
@@ -44,7 +45,7 @@ export class RawgService {
     return this.http.get(`${this.baseUrl}/games/${id}?key=${this.apiKey}`);
   }
 
-  getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+  getGamesToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult<Jeu>> {
     return this.http.get<any>(`${this.baseUrl}/games?key=${this.apiKey}&search=${search}&ordering=-rating&page=${page}&page_size=${pageSize}`).pipe(
         map(response => {
           return { items: response.results, count: response.count, query: search};
@@ -52,7 +53,7 @@ export class RawgService {
     );
   }
 
-  getPlatformsToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult> {
+  getPlatformsToFilter(search: string = '', page: number = 1, pageSize: number = 20): Observable<SearchResult<Plateforme>> {
     return this.http.get<any>(`${this.baseUrl}/platforms?key=${this.apiKey}&search=${search}&page=${page}&page_size=${pageSize}`).pipe(
         map(response => {
           return { items: response.results, count: response.count, query: search};
@@ -82,7 +83,7 @@ export class RawgService {
                 return { items: response.results, count: response.count, query: genre};
             })
         );
-    }*/
+    }
 
   /*getGamesContains(search: string): Observable<Jeu[]> {
   return this.getGamesToFilter().pipe(

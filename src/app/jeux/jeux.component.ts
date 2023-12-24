@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RawgService } from '../rawg.service';
 import {SearchResult} from "../search-result";
+import {Jeu} from "../jeu.interface";
 
 @Component({
   selector: 'app-jeux',
@@ -8,36 +9,45 @@ import {SearchResult} from "../search-result";
   styleUrls: ['./jeux.component.css']
 })
 export class JeuxComponent implements OnInit {
-    games: any[] = [];
+    searchResult: SearchResult<Jeu>
     currentPage: number = 1;
-    totalGames: number = 100;
     pageSize: number = 20;
     totalPages: number = 5;
 
-    searchQuery: string = '';
-
-    constructor(private rawgService: RawgService) { }
+    constructor(private rawgService: RawgService) {
+      this.searchResult = {
+        items: [],
+        count: 100,
+        query: ''
+      };
+    }
 
     ngOnInit(): void {
-        this.loadGames();
+        const item = localStorage.getItem('lastQuery');
+        if (!item) {
+            this.loadGames();
+            return;
+        }
+        this.searchResult = JSON.parse(item);
+        setTimeout(() => {
+          localStorage.removeItem('lastQuery');
+        }, 500);
     }
 
     loadGames(): void {
-        this.rawgService.getGames(this.currentPage, this.pageSize, "").subscribe(data => {
-            this.games = data.items;
-            this.totalGames = data.count;
-            this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+        this.rawgService.getGames("", this.currentPage, this.pageSize).subscribe(data => {
+            this.searchResult.items = data.items;
+            this.searchResult.count = data.count;
+            this.totalPages = Math.ceil(this.searchResult.count / this.pageSize);
         });
     }
-
-
 
     // Dans JeuxComponent
     onPageChange(page: number): void {
         this.currentPage = page;
-        if (this.searchQuery) {
-            this.rawgService.getGamesToFilter(this.searchQuery, this.currentPage, this.pageSize).subscribe(searchResult => {
-                this.games = searchResult.items;
+        if (this.searchResult.query) {
+            this.rawgService.getGamesToFilter(this.searchResult.query, this.currentPage, this.pageSize).subscribe(searchResult => {
+                this.searchResult.items = searchResult.items;
 
             });
         } else {
@@ -46,22 +56,21 @@ export class JeuxComponent implements OnInit {
     }
 
 
-    onEvent(searchResult: SearchResult): void {
-        this.games = searchResult.items;
-        this.totalGames = searchResult.count;
-        this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+    onEvent(searchResult: SearchResult<Jeu>): void {
+        this.searchResult.items = searchResult.items;
+        this.searchResult.count = searchResult.count;
+        this.searchResult.query = searchResult.query;
+        this.totalPages = Math.ceil(this.searchResult.count / this.pageSize);
         this.currentPage = 1;
-        this.searchQuery = searchResult.query;
+        localStorage.setItem('lastQuery', JSON.stringify(this.searchResult));
     }
 
-    onRedirectToDetails(searchResult: SearchResult): void {
+    onRedirectToDetails(searchResult: SearchResult<Jeu>): void {
         console.log("onRedirectToDetails");
-        this.games = searchResult.items;
-        this.totalGames = searchResult.count;
-        this.totalPages = Math.ceil(this.totalGames / this.pageSize);
+        this.searchResult.items = searchResult.items;
+        this.searchResult.count = searchResult.count;
+        this.totalPages = Math.ceil(this.searchResult.count / this.pageSize);
         this.currentPage = 1;
-        this.searchQuery = searchResult.query;
+        // localStorage.setItem('lastQuery', JSON.stringify(this.searchResult));
     }
-
 }
-

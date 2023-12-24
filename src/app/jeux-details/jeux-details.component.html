@@ -4,6 +4,9 @@
       <div class="card-content">
         <div class="card-img-column">
           <div class="card-img-body">
+            <button (click)="back()" class="prev-button">
+              <img src="assets/backbutton.png" alt="prev" width="50" height="50">
+            </button>
             <img class="card-img" src="{{gameDetails.background_image}}" alt="Card image cap">
             <div class="card-links">
               <a href="{{gameDetails.urls.website}}" class="btn btn-outline-primary">Site officiel</a>
@@ -12,14 +15,14 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body">!
           <h4 class="card-title">{{ gameDetails.name }}</h4>
           <p class="card-text">{{ gameDetails.released }} | {{ gameDetails.publishers }} | {{ gameDetails.genres }}</p>
           <p class="card-text"><u>Note globale :</u> {{ gameDetails.rating }} </p>
           <p class="card-text">{{ gameDetails.totalRatings }} Reviews</p>
 
           <p class="card-text"><u>Plateformes :</u> {{ gameDetails.platforms }}</p>
-          <div class="card-text" style="margin-right: 15px" [innerHTML]="gameDetails.description"></div>
+          <div class="card-text" style="margin-right: 15px" [innerHTML]="gameDetails.description"></div><br>
           <p class="card-text"><u>Disponible sur :</u> {{ gameDetails.stores }}</p>
         </div>
       </div>

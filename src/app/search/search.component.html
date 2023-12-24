@@ -4,7 +4,7 @@
             <form [formGroup]="searchForm">
                 <div>
                     <label>Search</label>
-                    <input formControlName="search" type="text" class="form-control" placeholder="Recherche ..."/>
+                    <input [ngModel]="lastQuery.query" formControlName="search" type="text" class="form-control" placeholder="Recherche ..."/>
                 </div>
             </form>
         </div>

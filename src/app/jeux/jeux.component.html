@@ -1,6 +1,6 @@
 <app-search (eventOut)="onEvent($event)"></app-search>
 <div class="d-flex justify-content-around align-items-center align-self-stretch flex-wrap">
-    <div *ngFor="let game of games" class="d-flex flex-column bd-highlight mb-3">
+    <div *ngFor="let game of searchResult.items" class="d-flex flex-column bd-highlight mb-3">
             <app-card [item]="game" [type]="'game'" (redirectOut)="onRedirectToDetails($event)"></app-card>
     </div>
 </div>

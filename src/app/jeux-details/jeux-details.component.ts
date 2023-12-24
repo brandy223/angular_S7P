@@ -3,6 +3,7 @@ import {RawgService} from '../rawg.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {map, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 
 type GameUrl = {
   website: string,
@@ -34,9 +35,9 @@ type GameDetails = {
 export class JeuxDetailsComponent {
 
   private routeSub: Subscription = new Subscription();
-  gameDetails: GameDetails;
+  protected gameDetails: GameDetails;
 
-  constructor(private rawgService: RawgService, private modalService: NgbModal, private route: ActivatedRoute) {
+  constructor(private rawgService: RawgService, private modalService: NgbModal, private route: ActivatedRoute, private location: Location) {
     this.gameDetails = {
       id: 0,
       name: "",
@@ -123,6 +124,10 @@ export class JeuxDetailsComponent {
       )).subscribe((data: GameDetails) => {
       this.gameDetails = data;
     });
+  }
+
+  back(): void {
+    this.location.back();
   }
 
   public open(modal: any): void {
